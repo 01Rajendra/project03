@@ -11,40 +11,40 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import in.co.rays.project_3.dto.BaseDTO;
-import in.co.rays.project_3.dto.VehicleDTO;
+import in.co.rays.project_3.dto.SmartParkingDTO;
 import in.co.rays.project_3.exception.ApplicationException;
 import in.co.rays.project_3.model.ModelFactory;
-import in.co.rays.project_3.model.VehicleModelInt;
+import in.co.rays.project_3.model.SmartParkingModelInt;
 import in.co.rays.project_3.util.DataUtility;
 import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Vehicle List functionality controller. To perform Search and List operation.
+ * SmartParking List functionality controller. To perform Search and List
+ * operation.
  *
  * @author Rajendra Singh
+ *
  */
-@WebServlet(name = "VehicleListCtl", urlPatterns = { "/ctl/VehicleListCtl" })
-public class VehicleListCtl extends BaseCtl {
+@WebServlet(name = "SmartParkingListCtl", urlPatterns = { "/ctl/SmartParkingListCtl" })
+public class SmartParkingListCtl extends BaseCtl {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger log = Logger.getLogger(VehicleListCtl.class);
+	private static Logger log = Logger.getLogger(SmartParkingListCtl.class);
 
 	@Override
 	protected BaseDTO populateDTO(HttpServletRequest request) {
 
-		VehicleDTO dto = new VehicleDTO();
+		SmartParkingDTO dto = new SmartParkingDTO();
 
-		dto.setVechicleId(DataUtility.getLong(request.getParameter("vechicleId")));
+		dto.setSlotId(DataUtility.getInt(request.getParameter("slotId")));
 
-		dto.setVehicleName(DataUtility.getString(request.getParameter("vehicleName")));
+		dto.setVehicalNumber(DataUtility.getString(request.getParameter("vehicalNumber")));
 
-		dto.setModel(DataUtility.getString(request.getParameter("model")));
+		dto.setVehicalType(DataUtility.getString(request.getParameter("vehicalType")));
 
-		dto.setColor(DataUtility.getString(request.getParameter("color")));
-
-		dto.setPrice(DataUtility.getDouble(request.getParameter("price")));
+		dto.setOccupied(DataUtility.getBoolean(request.getParameter("occupied")));
 
 		populateBean(dto, request);
 
@@ -58,7 +58,7 @@ public class VehicleListCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		log.debug("VehicleListCtl doGet Start");
+		log.debug("SmartParkingListCtl doGet Start");
 
 		List list;
 		List next;
@@ -67,9 +67,9 @@ public class VehicleListCtl extends BaseCtl {
 
 		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
-		VehicleDTO dto = (VehicleDTO) populateDTO(request);
+		SmartParkingDTO dto = (SmartParkingDTO) populateDTO(request);
 
-		VehicleModelInt model = ModelFactory.getInstance().getVehicleModel();
+		SmartParkingModelInt model = ModelFactory.getInstance().getSmartParkingModel();
 
 		try {
 
@@ -111,10 +111,12 @@ public class VehicleListCtl extends BaseCtl {
 
 			log.error(e);
 
-			e.printStackTrace();
+			ServletUtility.handleException(e, request, response);
+
+			return;
 		}
 
-		log.debug("VehicleListCtl doGet End");
+		log.debug("SmartParkingListCtl doGet End");
 	}
 
 	/**
@@ -124,7 +126,7 @@ public class VehicleListCtl extends BaseCtl {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		log.debug("VehicleListCtl doPost Start");
+		log.debug("SmartParkingListCtl doPost Start");
 
 		List list = null;
 		List next = null;
@@ -137,14 +139,13 @@ public class VehicleListCtl extends BaseCtl {
 
 		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
-		VehicleDTO dto = (VehicleDTO) populateDTO(request);
+		SmartParkingDTO dto = (SmartParkingDTO) populateDTO(request);
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
-		// Get selected checkbox IDs for delete
 		String[] ids = request.getParameterValues("ids");
 
-		VehicleModelInt model = ModelFactory.getInstance().getVehicleModel();
+		SmartParkingModelInt model = ModelFactory.getInstance().getSmartParkingModel();
 
 		try {
 
@@ -165,13 +166,13 @@ public class VehicleListCtl extends BaseCtl {
 
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
 
-				ServletUtility.redirect(ORSView.VEHICLE_CTL, request, response);
+				ServletUtility.redirect(ORSView.SMART_PARKING_CTL, request, response);
 
 				return;
 
 			} else if (OP_RESET.equalsIgnoreCase(op)) {
 
-				ServletUtility.redirect(ORSView.VEHICLE_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.SMART_PARKING_LIST_CTL, request, response);
 
 				return;
 
@@ -181,16 +182,16 @@ public class VehicleListCtl extends BaseCtl {
 
 				if (ids != null && ids.length > 0) {
 
-					VehicleDTO deleteDto = new VehicleDTO();
+					SmartParkingDTO deleteDto = new SmartParkingDTO();
 
 					for (String id : ids) {
 
-						deleteDto.setVechicleId(DataUtility.getLong(id));
+						deleteDto.setSlotId(DataUtility.getInt(id));
 
 						model.delete(deleteDto);
-
-						ServletUtility.setSuccessMessage("Data Successfully Deleted!", request);
 					}
+
+					ServletUtility.setSuccessMessage("Data Successfully Deleted!", request);
 
 				} else {
 
@@ -200,12 +201,12 @@ public class VehicleListCtl extends BaseCtl {
 
 			if (OP_BACK.equalsIgnoreCase(op)) {
 
-				ServletUtility.redirect(ORSView.VEHICLE_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.SMART_PARKING_LIST_CTL, request, response);
 
 				return;
 			}
 
-			dto = (VehicleDTO) populateDTO(request);
+			dto = (SmartParkingDTO) populateDTO(request);
 
 			list = model.search(dto, pageNo, pageSize);
 
@@ -250,15 +251,18 @@ public class VehicleListCtl extends BaseCtl {
 
 			log.error(e);
 
-			e.printStackTrace();
+			ServletUtility.handleException(e, request, response);
+
+			return;
 		}
 
-		log.debug("VehicleListCtl doPost End");
+		log.debug("SmartParkingListCtl doPost End");
 	}
 
 	@Override
 	protected String getView() {
 
-		return ORSView.VEHICLE_LIST_VIEW;
+		return ORSView.SMART_PARKING_LIST_VIEW;
 	}
+
 }

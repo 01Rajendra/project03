@@ -5,7 +5,7 @@
 
 <hibernate-mapping>
 
-    <class name="in.co.rays.project_3.dto.ProfileDTO" table="ST_PROFILE">
+    <class name="in.co.rays.project_3.dto.ProfileDTO" table="st_profile">
 
         <id name="id" column="ID">
             <generator class="identity"/>

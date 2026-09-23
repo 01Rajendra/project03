@@ -12,7 +12,7 @@
 
 <link rel="icon" type="image/png"
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
-	<script type="text/javascript"
+<script type="text/javascript"
 	src="<%=ORSView.APP_CONTEXT%>/js/CheckBox11.js"></script>
 
 <style>
@@ -20,10 +20,9 @@
 	background-image: url('<%=ORSView.APP_CONTEXT%>/img/result1.jpg');
 	background-size: cover;
 	background-position: center;
-	background-attachment: fixed;
-	min-height: 100vh;
+	background-repeat: no-repeat;
 	padding-top: 70px;
-	padding-bottom: 80px;
+	padding-bottom: 30px;
 }
 </style>
 </head>
@@ -145,7 +144,7 @@
 					<thead class="thead-light">
 						<tr>
 							<th><input type="checkbox" id="select_all"> Select
-							All</th>
+								All</th>
 							<th>S.No</th>
 							<th>Result Code</th>
 							<th>Student Name</th>

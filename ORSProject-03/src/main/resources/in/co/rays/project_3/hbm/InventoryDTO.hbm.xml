@@ -8,29 +8,29 @@
 	<class name="InventoryDTO" table="ST_INVENTORY">
 
 		<id name="id" type="java.lang.Long">
-			<column name="ID"/>
-			<generator class="increment"/>
+			<column name="ID" />
+			<generator class="increment" />
 		</id>
 
 		<property name="supplierName" type="java.lang.String">
-			<column name="SUPPLIER_NAME"/>
+			<column name="SUPPLIER_NAME" />
 		</property>
 
 		<property name="dob" type="java.util.Date">
-			<column name="DOB"/>
+			<column name="DOB" />
 		</property>
 
 		<property name="quantity" type="java.lang.Long">
-			<column name="QUANTITY"/>
+			<column name="QUANTITY" />
 		</property>
 
 		<property name="product" type="java.lang.String">
-			<column name="PRODUCT"/>
+			<column name="PRODUCT" />
 		</property>
 
-		
 
-		
+
+
 
 	</class>
 

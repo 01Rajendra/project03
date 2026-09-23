@@ -9,7 +9,7 @@
 <%@page import="in.co.rays.project_3.controller.ORSView"%>
 
 <html>
-<head> 
+<head>
 <title>Customer List</title>
 
 <script src="<%=ORSView.APP_CONTEXT%>/js/jquery.min.js"></script>
@@ -34,7 +34,8 @@
 
 <body class="hm">
 
-	<form class="pb-5" action="<%=ORSView.CUSTOMER_LIST_CTL%>" method="post">
+	<form class="pb-5" action="<%=ORSView.CUSTOMER_LIST_CTL%>"
+		method="post">
 
 		<jsp:useBean id="dto" class="in.co.rays.project_3.dto.CustomerDTO"
 			scope="request"></jsp:useBean>
@@ -57,7 +58,7 @@
 			</h1>
 		</center>
 
-		<!-- ✅ SUCCESS MESSAGE -->
+
 		<%
 			if (!ServletUtility.getSuccessMessage(request).equals("")) {
 		%>
@@ -68,7 +69,7 @@
 			}
 		%>
 
-		<!-- ❌ ERROR MESSAGE -->
+
 		<%
 			if (!ServletUtility.getErrorMessage(request).equals("")) {
 		%>
@@ -83,7 +84,7 @@
 			if (list.size() != 0) {
 		%>
 
-		<!-- 🔍 SEARCH -->
+
 		<div class="row">
 
 			<div class="col-sm-2"></div>
@@ -112,9 +113,8 @@
 
 			<div class="col-sm-2">
 				<input type="submit" class="btn btn-primary" name="operation"
-					value="<%=CustomerListCtl.OP_SEARCH%>"> 
-				<input type="submit"
-					class="btn btn-dark" name="operation"
+					value="<%=CustomerListCtl.OP_SEARCH%>"> <input
+					type="submit" class="btn btn-dark" name="operation"
 					value="<%=CustomerListCtl.OP_RESET%>">
 			</div>
 
@@ -122,13 +122,14 @@
 
 		<br>
 
-		<!-- 📋 TABLE -->
+
 		<div class="table-responsive">
 			<table class="table table-bordered table-dark table-hover">
 
 				<thead>
 					<tr style="background-color: red;">
-						<th><input type="checkbox" id="select_all"> Select All</th>
+						<th><input type="checkbox" id="select_all"> Select
+							All</th>
 						<th>S.No</th>
 						<th>Client Name</th>
 						<th>Location</th>
@@ -142,14 +143,12 @@
 
 					<%
 						while (it.hasNext()) {
-							dto = it.next();
+								dto = it.next();
 					%>
 
 					<tr>
-						<td align="center">
-							<input type="checkbox" class="checkbox"
-								name="ids" value="<%=dto.getId()%>">
-						</td>
+						<td align="center"><input type="checkbox" class="checkbox"
+							name="ids" value="<%=dto.getId()%>"></td>
 
 						<td class="text"><%=index++%></td>
 						<td class="text"><%=dto.getClientName()%></td>
@@ -157,8 +156,7 @@
 						<td class="text"><%=dto.getContactNumber()%></td>
 						<td class="text"><%=dto.getImportance()%></td>
 
-						<td class="text">
-							<a href="CustomerCtl?id=<%=dto.getId()%>">Edit</a>
+						<td class="text"><a href="CustomerCtl?id=<%=dto.getId()%>">Edit</a>
 						</td>
 					</tr>
 
@@ -170,31 +168,23 @@
 			</table>
 		</div>
 
-		<!-- 🔘 BUTTONS -->
+
 		<table width="100%">
 			<tr>
 
-				<td>
-					<input type="submit" class="btn btn-warning"
-						name="operation" value="<%=CustomerListCtl.OP_PREVIOUS%>"
-						<%=pageNo > 1 ? "" : "disabled"%>>
-				</td>
+				<td><input type="submit" class="btn btn-warning"
+					name="operation" value="<%=CustomerListCtl.OP_PREVIOUS%>"
+					<%=pageNo > 1 ? "" : "disabled"%>></td>
 
-				<td>
-					<input type="submit" class="btn btn-primary"
-						name="operation" value="<%=CustomerListCtl.OP_NEW%>">
-				</td>
+				<td><input type="submit" class="btn btn-primary"
+					name="operation" value="<%=CustomerListCtl.OP_NEW%>"></td>
 
-				<td>
-					<input type="submit" class="btn btn-danger"
-						name="operation" value="<%=CustomerListCtl.OP_DELETE%>">
-				</td>
+				<td><input type="submit" class="btn btn-danger"
+					name="operation" value="<%=CustomerListCtl.OP_DELETE%>"></td>
 
-				<td align="right">
-					<input type="submit" class="btn btn-warning"
-						name="operation" value="<%=CustomerListCtl.OP_NEXT%>"
-						<%=(nextPageSize > 0) ? "" : "disabled"%>>
-				</td>
+				<td align="right"><input type="submit" class="btn btn-warning"
+					name="operation" value="<%=CustomerListCtl.OP_NEXT%>"
+					<%=(nextPageSize > 0) ? "" : "disabled"%>></td>
 
 			</tr>
 		</table>
@@ -216,8 +206,8 @@
 			}
 		%>
 
-		<input type="hidden" name="pageNo" value="<%=pageNo%>"> 
-		<input type="hidden" name="pageSize" value="<%=pageSize%>">
+		<input type="hidden" name="pageNo" value="<%=pageNo%>"> <input
+			type="hidden" name="pageSize" value="<%=pageSize%>">
 
 	</form>
 

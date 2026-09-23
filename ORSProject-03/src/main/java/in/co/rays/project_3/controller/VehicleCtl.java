@@ -7,10 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import in.co.rays.project_3.dto.BaseDTO;
 import in.co.rays.project_3.dto.VehicleDTO;
 import in.co.rays.project_3.exception.ApplicationException;
-import in.co.rays.project_3.exception.DatabaseException;
 import in.co.rays.project_3.exception.DuplicateRecordException;
 import in.co.rays.project_3.model.ModelFactory;
 import in.co.rays.project_3.model.VehicleModelInt;
@@ -19,175 +20,210 @@ import in.co.rays.project_3.util.DataValidator;
 import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
-@WebServlet(name = "VehicleCtl", urlPatterns = "/ctl/VehicleCtl")
+@WebServlet(urlPatterns = { "/ctl/VehicleCtl" })
 public class VehicleCtl extends BaseCtl {
 
-    @Override
-    protected boolean validate(HttpServletRequest request) {
+	private static final long serialVersionUID = 1L;
 
-        boolean pass = true;
-        String op = request.getParameter("operation");
+	private static Logger log = Logger.getLogger(VehicleCtl.class);
 
-        if (OP_RESET.equalsIgnoreCase(op) || OP_CANCEL.equalsIgnoreCase(op)) {
-            return pass;
-        }
+	@Override
+	protected boolean validate(HttpServletRequest request) {
 
-        if (DataValidator.isNull(request.getParameter("vehicleNumber"))) {
-            request.setAttribute("vehicleNumber",
-                    PropertyReader.getValue("error.require", "Vehicle Number"));
-            pass = false;
-        }
+		boolean pass = true;
 
-        if (DataValidator.isNull(request.getParameter("ownerName"))) {
-            request.setAttribute("ownerName",
-                    PropertyReader.getValue("error.require", "Owner Name"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("vehicleName"))) {
+			request.setAttribute("vehicleName", PropertyReader.getValue("error.require", "Vehicle Name"));
+			pass = false;
+		}
 
-        if (DataValidator.isNull(request.getParameter("serviceType"))) {
-            request.setAttribute("serviceType",
-                    PropertyReader.getValue("error.require", "Service Type"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("model"))) {
+			request.setAttribute("model", PropertyReader.getValue("error.require", "Model"));
+			pass = false;
+		}
 
-        if (DataValidator.isNull(request.getParameter("serviceDate"))) {
-            request.setAttribute("serviceDate",
-                    PropertyReader.getValue("error.require", "Service Date"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("color"))) {
+			request.setAttribute("color", PropertyReader.getValue("error.require", "Color"));
+			pass = false;
+		}
 
-        if (DataValidator.isNull(request.getParameter("mechanicName"))) {
-            request.setAttribute("mechanicName",
-                    PropertyReader.getValue("error.require", "Mechanic Name"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("price"))) {
+			request.setAttribute("price", PropertyReader.getValue("error.require", "Price"));
+			pass = false;
+		}
 
-        if (DataValidator.isNull(request.getParameter("serviceCost"))) {
-            request.setAttribute("serviceCost",
-                    PropertyReader.getValue("error.require", "Service Cost"));
-            pass = false;
-        }
+		return pass;
+	}
 
-        return pass;
-    }
+	@Override
+	protected BaseDTO populateDTO(HttpServletRequest request) {
 
-    @Override
-    protected BaseDTO populateDTO(HttpServletRequest request) {
+		VehicleDTO dto = new VehicleDTO();
 
-        VehicleDTO dto = new VehicleDTO();
+		dto.setVechicleId(DataUtility.getLong(request.getParameter("vechicleId")));
 
-        dto.setId(DataUtility.getLong(request.getParameter("id")));
-        dto.setVehicleNumber(DataUtility.getString(request.getParameter("vehicleNumber")));
-        dto.setOwnerName(DataUtility.getString(request.getParameter("ownerName")));
-        dto.setServiceType(DataUtility.getString(request.getParameter("serviceType")));
-        dto.setServiceDate(DataUtility.getDate(request.getParameter("serviceDate")));
-        dto.setMechanicName(DataUtility.getString(request.getParameter("mechanicName")));
-        dto.setServiceCost(DataUtility.getString(request.getParameter("serviceCost")));
-        dto.setNextServiceDate(DataUtility.getDate(request.getParameter("nextServiceDate")));
+		dto.setVehicleName(DataUtility.getString(request.getParameter("vehicleName")));
 
-        populateBean(dto, request);
+		dto.setModel(DataUtility.getString(request.getParameter("model")));
 
-        return dto;
-    }
+		dto.setColor(DataUtility.getString(request.getParameter("color")));
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+		dto.setPrice(DataUtility.getDouble(request.getParameter("price")));
 
-        Long id = DataUtility.getLong(req.getParameter("id"));
-        VehicleModelInt model = ModelFactory.getInstance().getVehicleModel();
+		populateBean(dto, request);
 
-        if (id > 0) {
-            try {
-                VehicleDTO dto = model.findByPK(id);
-                ServletUtility.setDto(dto, req);
+		log.debug("VehicleCtl Method populateDTO Ended");
 
-            } catch (DatabaseException e) {
-                e.printStackTrace();
-                ServletUtility.handleExceptionDBDown(e, req, resp, getView());
-                return;
+		return dto;
+	}
 
-            } catch (ApplicationException e) {
-                e.printStackTrace();
-                ServletUtility.handleException(e, req, resp);
-                return;
-            }
-        }
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
-        ServletUtility.forward(getView(), req, resp);
-    }
+		log.debug("VehicleCtl Method doGet Started");
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+		String op = DataUtility.getString(request.getParameter("operation"));
 
-        String op = DataUtility.getString(req.getParameter("operation"));
-        VehicleModelInt model = ModelFactory.getInstance().getVehicleModel();
+		VehicleModelInt model = ModelFactory.getInstance().getVehicleModel();
 
-        if (OP_SAVE.equalsIgnoreCase(op)) {
+		long id = DataUtility.getLong(request.getParameter("vechicleId"));
 
-            VehicleDTO bean = (VehicleDTO) populateDTO(req);
+		if (id > 0 || op != null) {
 
-            try {
-                model.add(bean);
-                ServletUtility.setDto(bean, req);
-                ServletUtility.setSuccessMessage("Vehicle Added Successfully !!!", req);
+			VehicleDTO dto = null;
 
-            } catch (DuplicateRecordException dre) {
-                ServletUtility.setDto(bean, req);
-                ServletUtility.setErrorMessage("Vehicle Number Already Exist !!!", req);
+			try {
 
-            } catch (DatabaseException de) {
-                de.printStackTrace();
-                ServletUtility.handleExceptionDBDown(de, req, resp, getView());
-                return;
+				dto = model.findByPK(id);
 
-            } catch (ApplicationException ae) {
-                ae.printStackTrace();
-                ServletUtility.handleException(ae, req, resp);
-                return;
-            }
+				ServletUtility.setDto(dto, request);
 
-        } else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			} catch (Exception e) {
 
-            VehicleDTO dto = (VehicleDTO) populateDTO(req);
+				e.printStackTrace();
+				log.error(e);
 
-            try {
-                model.update(dto);
-                ServletUtility.setDto(dto, req);
-                ServletUtility.setSuccessMessage("Vehicle Updated Successfully !!!", req);
+				ServletUtility.handleException(e, request, response);
 
-            } catch (DuplicateRecordException dre) {
-                ServletUtility.setDto(dto, req);
-                ServletUtility.setErrorMessage("Vehicle Number Already Exist !!!", req);
+				return;
+			}
+		}
 
-            } catch (DatabaseException de) {
-                de.printStackTrace();
-                ServletUtility.handleException(de, req, resp);
-                return;
+		ServletUtility.forward(getView(), request, response);
 
-            } catch (ApplicationException ae) {
-                ae.printStackTrace();
-                ServletUtility.handleException(ae, req, resp);
-                return;
-            }
+		log.debug("VehicleCtl Method doGet Ended");
+	}
 
-        } else if (OP_RESET.equalsIgnoreCase(op)) {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
-            ServletUtility.redirect(ORSView.VEHICLE_CTL, req, resp);
-            return;
+		String op = DataUtility.getString(request.getParameter("operation"));
 
-        } else if (OP_CANCEL.equalsIgnoreCase(op)) {
+		VehicleModelInt model = ModelFactory.getInstance().getVehicleModel();
 
-            ServletUtility.redirect(ORSView.VEHICLE_LIST_CTL, req, resp);
-            return;
-        }
+		long id = DataUtility.getLong(request.getParameter("vechicleId"));
 
-        ServletUtility.forward(getView(), req, resp);
-    }
+		/*
+		 * SAVE / UPDATE
+		 */
+		if (OP_SAVE.equalsIgnoreCase(op) || OP_UPDATE.equalsIgnoreCase(op)) {
 
-    @Override
-    protected String getView() {
-        return ORSView.VEHICLE_VIEW;
-    }
+			VehicleDTO dto = (VehicleDTO) populateDTO(request);
+
+			try {
+
+				if (id > 0) {
+
+					model.update(dto);
+
+					ServletUtility.setSuccessMessage("Data is successfully Updated", request);
+
+				} else {
+
+					model.add(dto);
+
+					ServletUtility.setSuccessMessage("Data is successfully saved", request);
+				}
+
+				/*
+				 * IMPORTANT: Save/Update ke baad Vehicle List par redirect
+				 */
+				ServletUtility.redirect(ORSView.VEHICLE_LIST_CTL, request, response);
+
+				return;
+
+			} catch (ApplicationException e) {
+
+				log.error(e);
+
+				ServletUtility.handleException(e, request, response);
+
+				return;
+
+			} catch (DuplicateRecordException e) {
+
+				ServletUtility.setDto(dto, request);
+
+				ServletUtility.setErrorMessage("Vehicle already exists", request);
+			}
+
+		}
+
+		/*
+		 * DELETE
+		 */
+		else if (OP_DELETE.equalsIgnoreCase(op)) {
+
+			VehicleDTO dto = (VehicleDTO) populateDTO(request);
+
+			try {
+
+				model.delete(dto);
+
+				ServletUtility.redirect(ORSView.VEHICLE_LIST_CTL, request, response);
+
+				return;
+
+			} catch (ApplicationException e) {
+
+				log.error(e);
+
+				ServletUtility.handleException(e, request, response);
+
+				return;
+			}
+		}
+
+		/*
+		 * CANCEL
+		 */
+		else if (OP_CANCEL.equalsIgnoreCase(op)) {
+
+			ServletUtility.redirect(ORSView.VEHICLE_LIST_CTL, request, response);
+
+			return;
+		}
+
+		/*
+		 * RESET
+		 */
+		else if (OP_RESET.equalsIgnoreCase(op)) {
+
+			ServletUtility.redirect(ORSView.VEHICLE_CTL, request, response);
+
+			return;
+		}
+
+		ServletUtility.forward(getView(), request, response);
+
+		log.debug("VehicleCtl Method doPost Ended");
+	}
+
+	@Override
+	protected String getView() {
+
+		return ORSView.VEHICLE_VIEW;
+	}
 }

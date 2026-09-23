@@ -24,159 +24,153 @@ import in.co.rays.project_3.util.ServletUtility;
 @WebServlet(name = "CustomerCtl", urlPatterns = "/ctl/CustomerCtl")
 public class CustomerCtl extends BaseCtl {
 
-	  @Override
-	    protected void preload(HttpServletRequest request) {
+	@Override
+	protected void preload(HttpServletRequest request) {
 
-	        Map<String, String> map = new HashMap<>();
-	        map.put("High", "High");
-	        map.put("Medium", "Medium");
-	        map.put("Low", "Low");
+		Map<String, String> map = new HashMap<>();
+		map.put("High", "High");
+		map.put("Medium", "Medium");
+		map.put("Low", "Low");
 
-	        request.setAttribute("importanceList", map);
-	    }
+		request.setAttribute("importanceList", map);
+	}
 
-    @Override
-    protected boolean validate(HttpServletRequest request) {
+	@Override
+	protected boolean validate(HttpServletRequest request) {
 
-        boolean pass = true;
-        String op = request.getParameter("operation");
+		boolean pass = true;
+		String op = request.getParameter("operation");
 
-        if (OP_RESET.equalsIgnoreCase(op) || OP_CANCEL.equalsIgnoreCase(op)) {
-            return pass;
-        }
+		if (OP_RESET.equalsIgnoreCase(op) || OP_CANCEL.equalsIgnoreCase(op)) {
+			return pass;
+		}
 
-        if (DataValidator.isNull(request.getParameter("clientName"))) {
-            request.setAttribute("clientName",
-                    PropertyReader.getValue("error.require", "Client Name"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("clientName"))) {
+			request.setAttribute("clientName", PropertyReader.getValue("error.require", "Client Name"));
+			pass = false;
+		}
 
-        if (DataValidator.isNull(request.getParameter("location"))) {
-            request.setAttribute("location",
-                    PropertyReader.getValue("error.require", "Location"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("location"))) {
+			request.setAttribute("location", PropertyReader.getValue("error.require", "Location"));
+			pass = false;
+		}
 
-        if (DataValidator.isNull(request.getParameter("contactNumber"))) {
-            request.setAttribute("contactNumber",
-                    PropertyReader.getValue("error.require", "Contact Number")); 
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("contactNumber"))) {
+			request.setAttribute("contactNumber", PropertyReader.getValue("error.require", "Contact Number"));
+			pass = false;
+		}
 
-        if (DataValidator.isNull(request.getParameter("importance"))) {
-            request.setAttribute("importance",
-                    PropertyReader.getValue("error.require", "Importance"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("importance"))) {
+			request.setAttribute("importance", PropertyReader.getValue("error.require", "Importance"));
+			pass = false;
+		}
 
-        return pass;
-    }
+		return pass;
+	}
 
-    @Override
-    protected BaseDTO populateDTO(HttpServletRequest request) {
+	@Override
+	protected BaseDTO populateDTO(HttpServletRequest request) {
 
-        CustomerDTO dto = new CustomerDTO();
+		CustomerDTO dto = new CustomerDTO();
 
-        dto.setId(DataUtility.getLong(request.getParameter("id")));
-        dto.setClientName(DataUtility.getString(request.getParameter("clientName")));
-        dto.setLocation(DataUtility.getString(request.getParameter("location")));
-        dto.setContactNumber(DataUtility.getString(request.getParameter("contactNumber")));
-        dto.setImportance(DataUtility.getString(request.getParameter("importance")));
+		dto.setId(DataUtility.getLong(request.getParameter("id")));
+		dto.setClientName(DataUtility.getString(request.getParameter("clientName")));
+		dto.setLocation(DataUtility.getString(request.getParameter("location")));
+		dto.setContactNumber(DataUtility.getString(request.getParameter("contactNumber")));
+		dto.setImportance(DataUtility.getString(request.getParameter("importance")));
 
-        populateBean(dto, request);
+		populateBean(dto, request);
 
-        return dto;
-    }
+		return dto;
+	}
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Long id = DataUtility.getLong(req.getParameter("id"));
-        CustomerModelInt model = ModelFactory.getInstance().getCustomerModel();
+		Long id = DataUtility.getLong(req.getParameter("id"));
+		CustomerModelInt model = ModelFactory.getInstance().getCustomerModel();
 
-        if (id > 0) {
-            try {
-                CustomerDTO dto = model.findByPK(id);
-                ServletUtility.setDto(dto, req);
+		if (id > 0) {
+			try {
+				CustomerDTO dto = model.findByPK(id);
+				ServletUtility.setDto(dto, req);
 
-            } catch (ApplicationException e) {
-                e.printStackTrace();
-                ServletUtility.handleException(e, req, resp);
-                return;
-            }
-        }
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, req, resp);
+				return;
+			}
+		}
 
-        ServletUtility.forward(getView(), req, resp);
-    }
+		ServletUtility.forward(getView(), req, resp);
+	}
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String op = DataUtility.getString(req.getParameter("operation"));
-        CustomerModelInt model = ModelFactory.getInstance().getCustomerModel();
+		String op = DataUtility.getString(req.getParameter("operation"));
+		CustomerModelInt model = ModelFactory.getInstance().getCustomerModel();
 
-        if (OP_SAVE.equalsIgnoreCase(op)) {
+		if (OP_SAVE.equalsIgnoreCase(op)) {
 
-            CustomerDTO dto = (CustomerDTO) populateDTO(req);
+			CustomerDTO dto = (CustomerDTO) populateDTO(req);
 
-            try {
-                model.add(dto);
+			try {
+				model.add(dto);
 
-                ServletUtility.setDto(dto, req);
-                ServletUtility.setSuccessMessage("Customer Added Successfully !!!", req);
+				ServletUtility.setDto(dto, req);
+				ServletUtility.setSuccessMessage("Customer Added Successfully !!!", req);
 
-            } catch (DuplicateRecordException dre) {
+			} catch (DuplicateRecordException dre) {
 
-                ServletUtility.setDto(dto, req);
-                ServletUtility.setErrorMessage("Customer Already Exist !!!", req);
+				ServletUtility.setDto(dto, req);
+				ServletUtility.setErrorMessage("Customer Already Exist !!!", req);
 
-            } catch (ApplicationException ae) {
+			} catch (ApplicationException ae) {
 
-                ae.printStackTrace();
-                ServletUtility.handleException(ae, req, resp);
-                return;
-            }
+				ae.printStackTrace();
+				ServletUtility.handleException(ae, req, resp);
+				return;
+			}
 
-        } else if (OP_UPDATE.equalsIgnoreCase(op)) {
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 
-            CustomerDTO dto = (CustomerDTO) populateDTO(req);
+			CustomerDTO dto = (CustomerDTO) populateDTO(req);
 
-            try {
-                model.update(dto);
+			try {
+				model.update(dto);
 
-                ServletUtility.setDto(dto, req);
-                ServletUtility.setSuccessMessage("Customer Updated Successfully !!!", req);
+				ServletUtility.setDto(dto, req);
+				ServletUtility.setSuccessMessage("Customer Updated Successfully !!!", req);
 
-            } catch (DuplicateRecordException dre) {
+			} catch (DuplicateRecordException dre) {
 
-                ServletUtility.setDto(dto, req);
-                ServletUtility.setErrorMessage("Customer Already Exist !!!", req);
+				ServletUtility.setDto(dto, req);
+				ServletUtility.setErrorMessage("Customer Already Exist !!!", req);
 
-            } catch (ApplicationException ae) {
+			} catch (ApplicationException ae) {
 
-                ae.printStackTrace();
-                ServletUtility.handleException(ae, req, resp);
-                return;
-            }
+				ae.printStackTrace();
+				ServletUtility.handleException(ae, req, resp);
+				return;
+			}
 
-        } else if (OP_RESET.equalsIgnoreCase(op)) {
+		} else if (OP_RESET.equalsIgnoreCase(op)) {
 
-            ServletUtility.redirect(ORSView.CUSTOMER_CTL, req, resp);
-            return;
+			ServletUtility.redirect(ORSView.CUSTOMER_CTL, req, resp);
+			return;
 
-        } else if (OP_CANCEL.equalsIgnoreCase(op)) {
+		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 
-            ServletUtility.redirect(ORSView.CUSTOMER_LIST_CTL, req, resp);
-            return;
-        }
+			ServletUtility.redirect(ORSView.CUSTOMER_LIST_CTL, req, resp);
+			return;
+		}
 
-        ServletUtility.forward(getView(), req, resp);
-    }
+		ServletUtility.forward(getView(), req, resp);
+	}
 
-    @Override
-    protected String getView() {
-        return ORSView.CUSTOMER_VIEW;
-    }
+	@Override
+	protected String getView() {
+		return ORSView.CUSTOMER_VIEW;
+	}
 }

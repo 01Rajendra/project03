@@ -49,12 +49,10 @@
 			resource="in/co/rays/project_3/hbm/FacultyDTO.hbm.xml" />
 		<mapping
 			resource="in/co/rays/project_3/hbm/SubjectDTO.hbm.xml" />
-		<mapping
-			resource="in/co/rays/project_3/hbm/ProductDTO.hbm.xml" />
+
 		<mapping
 			resource="in/co/rays/project_3/hbm/ProfileDTO.hbm.xml" />
-		<mapping
-			resource="in/co/rays/project_3/hbm/InventoryDTO.hbm.xml" />
+
 		<mapping
 			resource="in/co/rays/project_3/hbm/SessionDTO.hbm.xml" />
 		<mapping
@@ -63,38 +61,60 @@
 		<mapping
 			resource="in/co/rays/project_3/hbm/AnnouncementDTO.hbm.xml" />
 
-		<mapping resource="in/co/rays/project_3/hbm/ResultDTO.hbm.xml" />
+
 
 		<mapping
 			resource="in/co/rays/project_3/hbm/PlacementDTO.hbm.xml" />
 		<mapping
 			resource="in/co/rays/project_3/hbm/HospitalDTO.hbm.xml" />
-		<mapping
-			resource="in/co/rays/project_3/hbm/VehicleDTO.hbm.xml" />
+
 
 		<mapping
 			resource="in/co/rays/project_3/hbm/DonationDTO.hbm.xml" />
 		<mapping
 			resource="in/co/rays/project_3/hbm/WarrantyDTO.hbm.xml" />
-		<mapping resource="in/co/rays/project_3/hbm/SalaryDTO.hbm.xml" />
+
 		<mapping
 			resource="in/co/rays/project_3/hbm/PortfolioDTO.hbm.xml" />
 
 		<mapping resource="in/co/rays/project_3/hbm/SecretDTO.hbm.xml" />
 
 		<mapping
-			resource="in/co/rays/project_3/hbm/CustomerDTO.hbm.xml" />
-
-		<mapping
 			resource="in/co/rays/project_3/hbm/ListenerDTO.hbm.xml" />
-		<mapping
-			resource="in/co/rays/project_3/hbm/BugTrackerDTO.hbm.xml" />
+
 		<mapping
 			resource="in/co/rays/project_3/hbm/FreelancerDTO.hbm.xml" />
 		<mapping
 			resource="in/co/rays/project_3/hbm/PodcastDTO.hbm.xml" />
-		<mapping 
-		    resource="in/co/rays/project_3/hbm/EventDTO.hbm.xml" />
+		<mapping
+			resource="in/co/rays/project_3/hbm/VoiceCommandDTO.hbm.xml" />
+
+		<mapping
+			resource="in/co/rays/project_3/hbm/InventoryDTO.hbm.xml" />
+		<mapping
+			resource="in/co/rays/project_3/hbm/SmartLightDTO.hbm.xml" />
+		<mapping
+			resource="in/co/rays/project_3/hbm/CustomerDTO.hbm.xml" />
+
+		<mapping resource="in/co/rays/project_3/hbm/OrderDTO.hbm.xml" />
+
+		<mapping resource="in/co/rays/project_3/hbm/SalaryDTO.hbm.xml" />
+		<mapping
+			resource="in/co/rays/project_3/hbm/VehicleDTO.hbm.xml" />
+		<mapping
+			resource="in/co/rays/project_3/hbm/BugTrackerDTO.hbm.xml" />
+		<mapping resource="in/co/rays/project_3/hbm/EventDTO.hbm.xml" />
+		<mapping
+			resource="in/co/rays/project_3/hbm/ProductDTO.hbm.xml" />
+		<mapping
+			resource="in/co/rays/project_3/hbm/SmartParkingDTO.hbm.xml" />
+
+
+
+
+
+
+
 
 
 

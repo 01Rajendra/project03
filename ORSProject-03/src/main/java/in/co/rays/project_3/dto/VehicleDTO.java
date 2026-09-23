@@ -1,71 +1,51 @@
 package in.co.rays.project_3.dto;
-import java.util.Date;
 
 public class VehicleDTO extends BaseDTO {
-	
-	private String vehicleNumber ;
-	private String ownerName;
-	private String serviceType;
-	private Date serviceDate;
-	private String mechanicName;
-	private String serviceCost;
-	private Date nextServiceDate;
 
+	private Long vechicleId;
+	private String vehicleName;
+	private String model;
+	private String color;
+	private Double price;
 
-	public String getVehicleNumber() {
-		return vehicleNumber;
+	public Long getVechicleId() {
+		return vechicleId;
 	}
 
-	public void setVehicleNumber(String vehicleNumber) {
-		this.vehicleNumber = vehicleNumber;
+	public void setVechicleId(Long vechicleId) {
+		this.vechicleId = vechicleId;
 	}
 
-	public String getOwnerName() {
-		return ownerName;
+	public String getVehicleName() {
+		return vehicleName;
 	}
 
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
+	public void setVehicleName(String vehicleName) {
+		this.vehicleName = vehicleName;
 	}
 
-	public String getServiceType() {
-		return serviceType;
+	public String getModel() {
+		return model;
 	}
 
-	public void setServiceType(String serviceType) {
-		this.serviceType = serviceType;
+	public void setModel(String model) {
+		this.model = model;
 	}
 
-	public Date getServiceDate() {
-		return serviceDate;
+	public String getColor() {
+		return color;
 	}
 
-	public void setServiceDate(Date serviceDate) {
-		this.serviceDate = serviceDate;
+	public void setColor(String color) {
+		this.color = color;
 	}
 
-	public String getMechanicName() {
-		return mechanicName;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setMechanicName(String mechanicName) {
-		this.mechanicName = mechanicName;
-	}
-
-	public String getServiceCost() {
-		return serviceCost;
-	}
-
-	public void setServiceCost(String serviceCost) {
-		this.serviceCost = serviceCost;
-	}
-
-	public Date getNextServiceDate() {
-		return nextServiceDate;
-	}
-
-	public void setNextServiceDate(Date nextServiceDate) {
-		this.nextServiceDate = nextServiceDate;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	@Override
@@ -79,13 +59,5 @@ public class VehicleDTO extends BaseDTO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public String toString() {
-		return "VehicleDTO [vehicleNumber=" + vehicleNumber + ", ownerName=" + ownerName + ", serviceType="
-				+ serviceType + ", serviceDate=" + serviceDate + ", mechanicName=" + mechanicName + ", serviceCost="
-				+ serviceCost + ", nextServiceDate=" + nextServiceDate + "]";
-	}
-	
 
 }

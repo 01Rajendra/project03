@@ -1,15 +1,12 @@
 package in.co.rays.project_3.dto;
- 
-public class CustomerDTO extends BaseDTO{
 
-	private String clientName;   
+public class CustomerDTO extends BaseDTO {
+
+	private String clientName;
 	private String location;
 	private String contactNumber;
-	private String importance; 
-	
-	
-	
-	
+	private String importance;
+
 	public String getClientName() {
 		return clientName;
 	}
@@ -53,5 +50,5 @@ public class CustomerDTO extends BaseDTO{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }

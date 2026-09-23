@@ -211,4 +211,9 @@ public class DataUtility {
 		return i;
 
 	}
+
+	public static boolean getBoolean(String parameter) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

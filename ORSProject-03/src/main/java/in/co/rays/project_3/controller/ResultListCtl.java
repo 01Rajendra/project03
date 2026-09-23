@@ -19,136 +19,135 @@ import in.co.rays.project_3.util.ServletUtility;
 @WebServlet(name = "ResultListCtl", urlPatterns = "/ctl/ResultListCtl")
 public class ResultListCtl extends BaseCtl {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        int pageNo = 1;
-        int pageSize = DataUtility.getInt(
-                request.getParameter("pageSize") == null ? "5"
-                        : request.getParameter("pageSize"));
+		int pageNo = 1;
+		int pageSize = DataUtility
+				.getInt(request.getParameter("pageSize") == null ? "5" : request.getParameter("pageSize"));
 
-        ResultDTO dto = new ResultDTO();
+		ResultDTO dto = new ResultDTO();
 
-        ResultModelInt model = ModelFactory.getInstance().getResultModel();
+		ResultModelInt model = ModelFactory.getInstance().getResultModel();
 
-        try {
-            List list = model.search(dto, pageNo, pageSize);
-            List nextList = model.search(dto, pageNo + 1, pageSize);
+		try {
+			List list = model.search(dto, pageNo, pageSize);
+			List nextList = model.search(dto, pageNo + 1, pageSize);
 
-            request.setAttribute("list", list);
+			request.setAttribute("list", list);
 
-            if (nextList == null || nextList.size() == 0) {
-                request.setAttribute("nextListSize", 0);
-            } else {
-                request.setAttribute("nextListSize", nextList.size());
-            }
+			if (nextList == null || nextList.size() == 0) {
+				request.setAttribute("nextListSize", 0);
+			} else {
+				request.setAttribute("nextListSize", nextList.size());
+			}
 
-            request.setAttribute("pageNo", pageNo);
-            request.setAttribute("pageSize", pageSize);
+			request.setAttribute("pageNo", pageNo);
+			request.setAttribute("pageSize", pageSize);
 
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-            ServletUtility.handleExceptionDBDown(e, request, response, getView());
-            return;
-        }
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+			ServletUtility.handleExceptionDBDown(e, request, response, getView());
+			return;
+		}
 
-        ServletUtility.forward(getView(), request, response);
-    }
+		ServletUtility.forward(getView(), request, response);
+	}
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        int pageNo = DataUtility.getInt(request.getParameter("pageNo"));
-        int pageSize = DataUtility.getInt(request.getParameter("pageSize"));
+		int pageNo = DataUtility.getInt(request.getParameter("pageNo"));
+		int pageSize = DataUtility.getInt(request.getParameter("pageSize"));
 
-        pageNo = (pageNo == 0) ? 1 : pageNo;
-        pageSize = (pageSize == 0) ? 5 : pageSize;
+		pageNo = (pageNo == 0) ? 1 : pageNo;
+		pageSize = (pageSize == 0) ? 5 : pageSize;
 
-        String op = DataUtility.getString(request.getParameter("operation"));
+		String op = DataUtility.getString(request.getParameter("operation"));
 
-        ResultDTO dto = new ResultDTO();
-        dto.setResultCode(DataUtility.getString(request.getParameter("resultCode")));
-        dto.setStudentName(DataUtility.getString(request.getParameter("studentName")));
-        dto.setGrade(DataUtility.getString(request.getParameter("grade")));
+		ResultDTO dto = new ResultDTO();
+		dto.setResultCode(DataUtility.getString(request.getParameter("resultCode")));
+		dto.setStudentName(DataUtility.getString(request.getParameter("studentName")));
+		dto.setGrade(DataUtility.getString(request.getParameter("grade")));
 
-        // marks optional search
-        int marks = DataUtility.getInt(request.getParameter("marks"));
-        if (marks > 0) {
-            dto.setMarks(marks);
-        }
+		// marks optional search
+		int marks = DataUtility.getInt(request.getParameter("marks"));
+		if (marks > 0) {
+			dto.setMarks(marks);
+		}
 
-        ResultModelInt model = ModelFactory.getInstance().getResultModel();
+		ResultModelInt model = ModelFactory.getInstance().getResultModel();
 
-        if (OP_SEARCH.equalsIgnoreCase(op)) {
-            pageNo = 1;
+		if (OP_SEARCH.equalsIgnoreCase(op)) {
+			pageNo = 1;
 
-        } else if (OP_NEXT.equalsIgnoreCase(op)) {
-            pageNo++;
+		} else if (OP_NEXT.equalsIgnoreCase(op)) {
+			pageNo++;
 
-        } else if (OP_PREVIOUS.equalsIgnoreCase(op)) {
-            pageNo--;
+		} else if (OP_PREVIOUS.equalsIgnoreCase(op)) {
+			pageNo--;
 
-        } else if (OP_NEW.equalsIgnoreCase(op)) {
-            ServletUtility.redirect(ORSView.RESULT_CTL, request, response);
-            return;
+		} else if (OP_NEW.equalsIgnoreCase(op)) {
+			ServletUtility.redirect(ORSView.RESULT_CTL, request, response);
+			return;
 
-        } else if (OP_RESET.equalsIgnoreCase(op)) {
-            ServletUtility.redirect(ORSView.RESULT_LIST_CTL, request, response);
-            return;
+		} else if (OP_RESET.equalsIgnoreCase(op)) {
+			ServletUtility.redirect(ORSView.RESULT_LIST_CTL, request, response);
+			return;
 
-        } else if (OP_DELETE.equalsIgnoreCase(op)) {
+		} else if (OP_DELETE.equalsIgnoreCase(op)) {
 
-            String[] ids = request.getParameterValues("ids");
+			String[] ids = request.getParameterValues("ids");
 
-            if (ids != null) {
+			if (ids != null) {
 
-                for (String id : ids) {
-                    ResultDTO deleteDto = new ResultDTO();
-                    deleteDto.setId(DataUtility.getLong(id));
+				for (String id : ids) {
+					ResultDTO deleteDto = new ResultDTO();
+					deleteDto.setId(DataUtility.getLong(id));
 
-                    try {
-                        model.delete(deleteDto);
-                    } catch (DatabaseException e) {
-                        e.printStackTrace();
-                        ServletUtility.handleException(e, request, response);
-                        return;
-                    }
-                }
+					try {
+						model.delete(deleteDto);
+					} catch (DatabaseException e) {
+						e.printStackTrace();
+						ServletUtility.handleException(e, request, response);
+						return;
+					}
+				}
 
-                ServletUtility.setSuccessMessage("Result Deleted Successfully", request);
+				ServletUtility.setSuccessMessage("Result Deleted Successfully", request);
 
-            } else {
-                ServletUtility.setErrorMessage("Select at least one record", request);
-            }
-        }
+			} else {
+				ServletUtility.setErrorMessage("Select at least one record", request);
+			}
+		}
 
-        try {
-            List list = model.search(dto, pageNo, pageSize);
-            List nextList = model.search(dto, pageNo + 1, pageSize);
+		try {
+			List list = model.search(dto, pageNo, pageSize);
+			List nextList = model.search(dto, pageNo + 1, pageSize);
 
-            request.setAttribute("list", list);
+			request.setAttribute("list", list);
 
-            if (nextList == null || nextList.size() == 0) {
-                request.setAttribute("nextListSize", 0);
-            } else {
-                request.setAttribute("nextListSize", nextList.size());
-            }
+			if (nextList == null || nextList.size() == 0) {
+				request.setAttribute("nextListSize", 0);
+			} else {
+				request.setAttribute("nextListSize", nextList.size());
+			}
 
-            request.setAttribute("pageNo", pageNo);
-            request.setAttribute("pageSize", pageSize);
+			request.setAttribute("pageNo", pageNo);
+			request.setAttribute("pageSize", pageSize);
 
-            ServletUtility.forward(getView(), request, response);
+			ServletUtility.forward(getView(), request, response);
 
-        } catch (ApplicationException e) {
-            e.printStackTrace();
-            ServletUtility.handleException(e, request, response);
-        }
-    }
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+			ServletUtility.handleException(e, request, response);
+		}
+	}
 
-    @Override
-    protected String getView() {
-        return ORSView.RESULT_LIST_VIEW;
-    }
+	@Override
+	protected String getView() {
+		return ORSView.RESULT_LIST_VIEW;
+	}
 }

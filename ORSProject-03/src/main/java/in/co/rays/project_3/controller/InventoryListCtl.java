@@ -19,131 +19,131 @@ import in.co.rays.project_3.util.ServletUtility;
 @WebServlet(name = "InventoryListCtl", urlPatterns = "/ctl/InventoryListCtl")
 public class InventoryListCtl extends BaseCtl {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        int pageNo = 1;
-        int pageSize = DataUtility.getInt(
-                request.getParameter("pageSize") == null ? "5" : request.getParameter("pageSize"));
+		int pageNo = 1;
+		int pageSize = DataUtility
+				.getInt(request.getParameter("pageSize") == null ? "5" : request.getParameter("pageSize"));
 
-        InventoryDTO dto = new InventoryDTO();
+		InventoryDTO dto = new InventoryDTO();
 
-        InventoryModelInt model = ModelFactory.getInstance().getInventoryModel();
+		InventoryModelInt model = ModelFactory.getInstance().getInventoryModel();
 
-        try {
-            List list = model.search(dto, pageNo, pageSize);
-            List nextList = model.search(dto, pageNo + 1, pageSize);
+		try {
+			List list = model.search(dto, pageNo, pageSize);
+			List nextList = model.search(dto, pageNo + 1, pageSize);
 
-            request.setAttribute("list", list);
+			request.setAttribute("list", list);
 
-            if (nextList == null || nextList.size() == 0) {
-                request.setAttribute("nextListSize", 0);
-            } else {
-                request.setAttribute("nextListSize", nextList.size());
-            }
+			if (nextList == null || nextList.size() == 0) {
+				request.setAttribute("nextListSize", 0);
+			} else {
+				request.setAttribute("nextListSize", nextList.size());
+			}
 
-            request.setAttribute("pageNo", pageNo);
-            request.setAttribute("pageSize", pageSize);
+			request.setAttribute("pageNo", pageNo);
+			request.setAttribute("pageSize", pageSize);
 
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-            ServletUtility.handleExceptionDBDown(e, request, response, getView());
-            return;
-        }
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+			ServletUtility.handleExceptionDBDown(e, request, response, getView());
+			return;
+		}
 
-        ServletUtility.forward(getView(), request, response);
-    }
+		ServletUtility.forward(getView(), request, response);
+	}
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        int pageNo = DataUtility.getInt(request.getParameter("pageNo"));
-        int pageSize = DataUtility.getInt(request.getParameter("pageSize"));
+		int pageNo = DataUtility.getInt(request.getParameter("pageNo"));
+		int pageSize = DataUtility.getInt(request.getParameter("pageSize"));
 
-        pageNo = (pageNo == 0) ? 1 : pageNo;
-        pageSize = (pageSize == 0) ? 5 : pageSize;
+		pageNo = (pageNo == 0) ? 1 : pageNo;
+		pageSize = (pageSize == 0) ? 5 : pageSize;
 
-        String op = DataUtility.getString(request.getParameter("operation"));
+		String op = DataUtility.getString(request.getParameter("operation"));
 
-        InventoryDTO dto = new InventoryDTO();
-        dto.setSupplierName(DataUtility.getString(request.getParameter("supplierName")));
-        dto.setProduct(DataUtility.getString(request.getParameter("product")));
+		InventoryDTO dto = new InventoryDTO();
+		dto.setSupplierName(DataUtility.getString(request.getParameter("supplierName")));
+		dto.setProduct(DataUtility.getString(request.getParameter("product")));
 
-        InventoryModelInt model = ModelFactory.getInstance().getInventoryModel();
+		InventoryModelInt model = ModelFactory.getInstance().getInventoryModel();
 
-        if (OP_SEARCH.equalsIgnoreCase(op)) {
-            pageNo = 1;
+		if (OP_SEARCH.equalsIgnoreCase(op)) {
+			pageNo = 1;
 
-        } else if (OP_NEXT.equalsIgnoreCase(op)) {
-            pageNo++;
+		} else if (OP_NEXT.equalsIgnoreCase(op)) {
+			pageNo++;
 
-        } else if (OP_PREVIOUS.equalsIgnoreCase(op)) {
-            pageNo--;
+		} else if (OP_PREVIOUS.equalsIgnoreCase(op)) {
+			pageNo--;
 
-        } else if (OP_NEW.equalsIgnoreCase(op)) {
-            ServletUtility.redirect(ORSView.INVENTORY_CTL, request, response);
-            return;
+		} else if (OP_NEW.equalsIgnoreCase(op)) {
+			ServletUtility.redirect(ORSView.INVENTORY_CTL, request, response);
+			return;
 
-        }
-        
-        else if (OP_RESET.equalsIgnoreCase(op)) {
+		}
+
+		else if (OP_RESET.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.INVENTORY_LIST_CTL, request, response);
 			return;
 		}
-        
-        else if (OP_DELETE.equalsIgnoreCase(op)) {
 
-            String[] ids = request.getParameterValues("ids");
+		else if (OP_DELETE.equalsIgnoreCase(op)) {
 
-            if (ids != null) {
+			String[] ids = request.getParameterValues("ids");
 
-                for (String id : ids) {
-                    InventoryDTO deleteDto = new InventoryDTO();
-                    deleteDto.setId(DataUtility.getLong(id));
+			if (ids != null) {
 
-                    try {
-                        model.delete(deleteDto);
-                    } catch (DatabaseException e) {
-                        e.printStackTrace();
-                        ServletUtility.handleException(e, request, response);
-                        return;
-                    }
-                }
+				for (String id : ids) {
+					InventoryDTO deleteDto = new InventoryDTO();
+					deleteDto.setId(DataUtility.getLong(id));
 
-                ServletUtility.setSuccessMessage("Inventory Deleted Successfully", request);
+					try {
+						model.delete(deleteDto);
+					} catch (DatabaseException e) {
+						e.printStackTrace();
+						ServletUtility.handleException(e, request, response);
+						return;
+					}
+				}
 
-            } else {
-                ServletUtility.setErrorMessage("Select at least one record", request);
-            }
-        }
+				ServletUtility.setSuccessMessage("Inventory Deleted Successfully", request);
 
-        try {
-            List list = model.search(dto, pageNo, pageSize);
-            List nextList = model.search(dto, pageNo + 1, pageSize);
+			} else {
+				ServletUtility.setErrorMessage("Select at least one record", request);
+			}
+		}
 
-            request.setAttribute("list", list);
+		try {
+			List list = model.search(dto, pageNo, pageSize);
+			List nextList = model.search(dto, pageNo + 1, pageSize);
 
-            if (nextList == null || nextList.size() == 0) {
-                request.setAttribute("nextListSize", 0);
-            } else {
-                request.setAttribute("nextListSize", nextList.size());
-            }
+			request.setAttribute("list", list);
 
-            request.setAttribute("pageNo", pageNo);
-            request.setAttribute("pageSize", pageSize);
+			if (nextList == null || nextList.size() == 0) {
+				request.setAttribute("nextListSize", 0);
+			} else {
+				request.setAttribute("nextListSize", nextList.size());
+			}
 
-            ServletUtility.forward(getView(), request, response);
+			request.setAttribute("pageNo", pageNo);
+			request.setAttribute("pageSize", pageSize);
 
-        } catch (ApplicationException e) {
-            e.printStackTrace();
-            ServletUtility.handleException(e, request, response);
-        }
-    }
+			ServletUtility.forward(getView(), request, response);
 
-    @Override
-    protected String getView() {
-        return ORSView.INVENTORY_LIST_VIEW;
-    }
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+			ServletUtility.handleException(e, request, response);
+		}
+	}
+
+	@Override
+	protected String getView() {
+		return ORSView.INVENTORY_LIST_VIEW;
+	}
 }

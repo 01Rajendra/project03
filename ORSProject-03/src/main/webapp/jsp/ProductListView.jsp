@@ -105,27 +105,27 @@
 
 			<div class="row justify-content-center mt-3">
 
-    <div class="col-md-2">
-        <input type="text" name="productName"
-            placeholder="Enter productName" class="form-control"
-            value="<%=ServletUtility.getParameter("productName", request)%>">
-    </div>
+				<div class="col-md-2">
+					<input type="text" name="productName"
+						placeholder="Enter productName" class="form-control"
+						value="<%=ServletUtility.getParameter("productName", request)%>">
+				</div>
 
-    <div class="col-md-2">
-        <input type="text" name="productAmmount"
-            placeholder="Enter productAmmount" class="form-control"
-            value="<%=ServletUtility.getParameter("productAmmount", request)%>">
-    </div>
+				<div class="col-md-2">
+					<input type="text" name="productAmmount"
+						placeholder="Enter productAmmount" class="form-control"
+						value="<%=ServletUtility.getParameter("productAmmount", request)%>">
+				</div>
 
-    <div class="col-md-3 text-center">
-        <input type="submit" class="btn btn-primary btn-md"
-            name="operation" value="<%=ProductListCtl.OP_SEARCH%>">&emsp;
+				<div class="col-md-3 text-center">
+					<input type="submit" class="btn btn-primary btn-md"
+						name="operation" value="<%=ProductListCtl.OP_SEARCH%>">&emsp;
 
-        <input type="submit" class="btn btn-dark btn-md"
-            name="operation" value="<%=ProductListCtl.OP_RESET%>">
-    </div>
+					<input type="submit" class="btn btn-dark btn-md" name="operation"
+						value="<%=ProductListCtl.OP_RESET%>">
+				</div>
 
-</div>
+			</div>
 
 			</br>
 			<div style="margin-bottom: 20px;" class="table-responsive">

@@ -7,7 +7,7 @@
 <%@ page import="java.util.List"%>
 
 <html>
-<head> 
+<head>
 <title>Customer View</title>
 
 <style>
@@ -50,9 +50,9 @@
 						%>
 
 
-						
 
-						<!-- ✅ SUCCESS MESSAGE -->
+
+
 						<%
 							if (!ServletUtility.getSuccessMessage(request).equals("")) {
 						%>
@@ -63,7 +63,7 @@
 							}
 						%>
 
-						<!-- ❌ ERROR MESSAGE -->
+
 						<%
 							if (!ServletUtility.getErrorMessage(request).equals("")) {
 						%>

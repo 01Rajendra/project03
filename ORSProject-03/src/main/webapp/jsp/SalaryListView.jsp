@@ -49,8 +49,8 @@
 				Iterator<SalaryDTO> it = list.iterator();
 			%>
 
-			<input type="hidden" name="pageNo" value="<%=pageNo%>"> 
-			<input type="hidden" name="pageSize" value="<%=pageSize%>">
+			<input type="hidden" name="pageNo" value="<%=pageNo%>"> <input
+				type="hidden" name="pageSize" value="<%=pageSize%>">
 
 			<!-- Error Message -->
 			<%
@@ -76,10 +76,12 @@
 
 			<!-- SEARCH FILTER -->
 			<div class="table-responsive">
-				<table class="table table-borderless w-100 text-center bg-light rounded shadow-sm">
+				<table
+					class="table table-borderless w-100 text-center bg-light rounded shadow-sm">
 					<tr>
 						<td>
-							<div class="d-flex justify-content-center align-items-center flex-wrap p-3">
+							<div
+								class="d-flex justify-content-center align-items-center flex-wrap p-3">
 
 								<!-- Salary Code -->
 								<div class="mx-2">
@@ -131,11 +133,13 @@
 
 			<!-- DATA TABLE -->
 			<div class="table-responsive">
-				<table class="table table-bordered table-hover w-100 text-center bg-white shadow-sm">
+				<table
+					class="table table-bordered table-hover w-100 text-center bg-white shadow-sm">
 
 					<thead class="thead-light">
 						<tr>
-							<th><input type="checkbox" id="select_all"> Select All</th>
+							<th><input type="checkbox" id="select_all"> Select
+								All</th>
 							<th>S.No</th>
 							<th>Salary Code</th>
 							<th>Employee Name</th>
@@ -158,10 +162,8 @@
 							<td><%=dto.getEmployeeName()%></td>
 							<td><%=dto.getSalaryAmount()%></td>
 							<td><%=dto.getSalaryStatus()%></td>
-							<td>
-								<a href="SalaryCtl?id=<%=dto.getId()%>"
-								class="btn btn-link btn-sm p-0">Edit</a>
-							</td>
+							<td><a href="SalaryCtl?id=<%=dto.getId()%>"
+								class="btn btn-link btn-sm p-0">Edit</a></td>
 						</tr>
 						<%
 							}
@@ -175,27 +177,23 @@
 			<table class="table w-100">
 				<tr>
 
-					<td width="25%">
-						<input type="submit" class="btn btn-outline-primary"
-							name="operation" value="<%=SalaryListCtl.OP_PREVIOUS%>"
-							<%=pageNo > 1 ? "" : "disabled"%>>
-					</td>
+					<td width="25%"><input type="submit"
+						class="btn btn-outline-primary" name="operation"
+						value="<%=SalaryListCtl.OP_PREVIOUS%>"
+						<%=pageNo > 1 ? "" : "disabled"%>></td>
 
-					<td width="25%" class="text-center">
-						<input type="submit" class="btn btn-outline-success"
-							name="operation" value="<%=SalaryListCtl.OP_NEW%>">
-					</td>
+					<td width="25%" class="text-center"><input type="submit"
+						class="btn btn-outline-success" name="operation"
+						value="<%=SalaryListCtl.OP_NEW%>"></td>
 
-					<td width="25%" class="text-center">
-						<input type="submit" class="btn btn-outline-danger"
-							name="operation" value="<%=SalaryListCtl.OP_DELETE%>">
-					</td>
+					<td width="25%" class="text-center"><input type="submit"
+						class="btn btn-outline-danger" name="operation"
+						value="<%=SalaryListCtl.OP_DELETE%>"></td>
 
-					<td width="25%" class="text-right">
-						<input type="submit" class="btn btn-outline-primary"
-							name="operation" value="<%=SalaryListCtl.OP_NEXT%>"
-							<%=nextPageSize != 0 ? "" : "disabled"%>>
-					</td>
+					<td width="25%" class="text-right"><input type="submit"
+						class="btn btn-outline-primary" name="operation"
+						value="<%=SalaryListCtl.OP_NEXT%>"
+						<%=nextPageSize != 0 ? "" : "disabled"%>></td>
 
 				</tr>
 			</table>
@@ -206,10 +204,9 @@
 
 			<table class="table w-100">
 				<tr>
-					<td class="text-right">
-						<input type="submit" class="btn btn-warning"
-							name="operation" value="<%=SalaryListCtl.OP_BACK%>">
-					</td>
+					<td class="text-right"><input type="submit"
+						class="btn btn-warning" name="operation"
+						value="<%=SalaryListCtl.OP_BACK%>"></td>
 				</tr>
 			</table>
 

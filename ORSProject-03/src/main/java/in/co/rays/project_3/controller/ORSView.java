@@ -45,8 +45,6 @@ public interface ORSView {
 	public String TIMETABLE_LIST_VIEW = PAGE_FOLDER + "/TimeTableListView.jsp";
 	public String SUBJECT_VIEW = PAGE_FOLDER + "/SubjectView.jsp";
 	public String SUBJECT_LIST_VIEW = PAGE_FOLDER + "/SubjectListView.jsp";
-	public String PRODUCT_VIEW = PAGE_FOLDER + "/ProductView.jsp";
-	public String PRODUCT_LIST_VIEW = PAGE_FOLDER + "/ProductListView.jsp";
 
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
 
@@ -72,8 +70,6 @@ public interface ORSView {
 	public String SUBJECT_LIST_CTL = APP_CONTEXT + "/ctl/SubjectListCtl";
 	public String TIMETABLE_CTL = APP_CONTEXT + "/ctl/TimeTableCtl";
 	public String TIMETABLE_LIST_CTL = APP_CONTEXT + "/ctl/TimeTableListCtl";
-	public String PRODUCT_CTL = APP_CONTEXT + "/ctl/ProductCtl";
-	public String PRODUCT_LIST_CTL = APP_CONTEXT + "/ctl/ProductListCtl";
 
 	public String GET_MARKSHEET_CTL = APP_CONTEXT + "/ctl/GetMarksheetCtl";
 	public String CHANGE_PASSWORD_CTL = APP_CONTEXT + "/ctl/ChangePasswordCtl";
@@ -85,11 +81,6 @@ public interface ORSView {
 	public String PROFILE_LIST_VIEW = PAGE_FOLDER + "/ProfileListView.jsp";
 	public String PROFILE_CTL = APP_CONTEXT + "/ctl/ProfileCtl";
 	public String PROFILE_LIST_CTL = APP_CONTEXT + "/ctl/ProfileListCtl";
-
-	public String INVENTORY_VIEW = PAGE_FOLDER + "/InventoryView.jsp";
-	public String INVENTORY_LIST_VIEW = PAGE_FOLDER + "/InventoryListView.jsp";
-	public String INVENTORY_CTL = APP_CONTEXT + "/ctl/InventoryCtl";
-	public String INVENTORY_LIST_CTL = APP_CONTEXT + "/ctl/InventoryListCtl";
 
 	public String SESSION_VIEW = PAGE_FOLDER + "/SessionView.jsp";
 	public String SESSION_LIST_VIEW = PAGE_FOLDER + "/SessionListView.jsp";
@@ -106,11 +97,6 @@ public interface ORSView {
 	public String ANNOUNCEMENT_CTL = APP_CONTEXT + "/ctl/AnnouncementCtl";
 	public String ANNOUNCEMENT_LIST_CTL = APP_CONTEXT + "/ctl/AnnouncementListCtl";
 
-	public String RESULT_VIEW = PAGE_FOLDER + "/ResultView.jsp";
-	public String RESULT_LIST_VIEW = PAGE_FOLDER + "/ResultListView.jsp";
-	public String RESULT_CTL = APP_CONTEXT + "/ctl/ResultCtl";
-	public String RESULT_LIST_CTL = APP_CONTEXT + "/ctl/ResultListCtl";
-
 	public String PLACEMENT_VIEW = PAGE_FOLDER + "/PlacementView.jsp";
 	public String PLACEMENT_LIST_VIEW = PAGE_FOLDER + "/PlacementListView.jsp";
 	public String PLACEMENT_CTL = APP_CONTEXT + "/ctl/PlacementCtl";
@@ -120,11 +106,6 @@ public interface ORSView {
 	public String HOSPITAL_LIST_VIEW = PAGE_FOLDER + "/HospitalListView.jsp";
 	public String HOSPITAL_CTL = APP_CONTEXT + "/ctl/HospitalCtl";
 	public String HOSPITAL_LIST_CTL = APP_CONTEXT + "/ctl/HospitalListCtl";
-
-	public String VEHICLE_VIEW = PAGE_FOLDER + "/VehicleView.jsp";
-	public String VEHICLE_LIST_VIEW = PAGE_FOLDER + "/VehicleListView.jsp";
-	public String VEHICLE_CTL = APP_CONTEXT + "/ctl/VehicleCtl";
-	public String VEHICLE_LIST_CTL = APP_CONTEXT + "/ctl/VehicleListCtl";
 
 	public String DONATION_VIEW = PAGE_FOLDER + "/DonationView.jsp";
 	public String DONATION_LIST_VIEW = PAGE_FOLDER + "/DonationListView.jsp";
@@ -136,11 +117,6 @@ public interface ORSView {
 	public String WARRANTY_CTL = APP_CONTEXT + "/ctl/WarrantyCtl";
 	public String WARRANTY_LIST_CTL = APP_CONTEXT + "/ctl/WarrantyListCtl";
 
-	public String SALARY_VIEW = PAGE_FOLDER + "/SalaryView.jsp";
-	public String SALARY_LIST_VIEW = PAGE_FOLDER + "/SalaryListView.jsp";
-	public String SALARY_CTL = APP_CONTEXT + "/ctl/SalaryCtl";
-	public String SALARY_LIST_CTL = APP_CONTEXT + "/ctl/SalaryListCtl";
-
 	public String PORTFOLIO_VIEW = PAGE_FOLDER + "/PortfolioView.jsp";
 	public String PORTFOLIO_LIST_VIEW = PAGE_FOLDER + "/PortfolioListView.jsp";
 	public String PORTFOLIO_CTL = APP_CONTEXT + "/ctl/PortfolioCtl";
@@ -151,20 +127,10 @@ public interface ORSView {
 	public String SECRET_CTL = APP_CONTEXT + "/ctl/SecretCtl";
 	public String SECRET_LIST_CTL = APP_CONTEXT + "/ctl/SecretListCtl";
 
-	public String CUSTOMER_VIEW = PAGE_FOLDER + "/CustomerView.jsp";
-	public String CUSTOMER_LIST_VIEW = PAGE_FOLDER + "/CustomerListView.jsp";
-	public String CUSTOMER_CTL = APP_CONTEXT + "/ctl/CustomerCtl";
-	public String CUSTOMER_LIST_CTL = APP_CONTEXT + "/ctl/CustomerListCtl";
-
 	public String LISTENER_VIEW = PAGE_FOLDER + "/ListenerView.jsp";
 	public String LISTENER_LIST_VIEW = PAGE_FOLDER + "/ListenerListView.jsp";
 	public String LISTENER_CTL = APP_CONTEXT + "/ctl/ListenerCtl";
 	public String LISTENER_LIST_CTL = APP_CONTEXT + "/ctl/ListenerListCtl";
-
-	public String BUGTRACKER_VIEW = PAGE_FOLDER + "/BugTrackerView.jsp";
-	public String BUGTRACKER_LIST_VIEW = PAGE_FOLDER + "/BugTrackerListView.jsp";
-	public String BUGTRACKER_CTL = APP_CONTEXT + "/ctl/BugTrackerCtl";
-	public String BUGTRACKER_LIST_CTL = APP_CONTEXT + "/ctl/BugTrackerListCtl";
 
 	public String FREELANCER_VIEW = PAGE_FOLDER + "/FreelancerView.jsp";
 	public String FREELANCER_LIST_VIEW = PAGE_FOLDER + "/FreelancerListView.jsp";
@@ -181,9 +147,59 @@ public interface ORSView {
 	public String VOICE_COMMAND_CTL = APP_CONTEXT + "/ctl/VoiceCommandCtl";
 	public String VOICE_COMMAND_LIST_CTL = APP_CONTEXT + "/ctl/VoiceCommandListCtl";
 
+	public String RESULT_VIEW = PAGE_FOLDER + "/ResultView.jsp";
+	public String RESULT_LIST_VIEW = PAGE_FOLDER + "/ResultListView.jsp";
+	public String RESULT_CTL = APP_CONTEXT + "/ctl/ResultCtl";
+	public String RESULT_LIST_CTL = APP_CONTEXT + "/ctl/ResultListCtl";
+
+	public String INVENTORY_VIEW = PAGE_FOLDER + "/InventoryView.jsp";
+	public String INVENTORY_LIST_VIEW = PAGE_FOLDER + "/InventoryListView.jsp";
+	public String INVENTORY_CTL = APP_CONTEXT + "/ctl/InventoryCtl";
+	public String INVENTORY_LIST_CTL = APP_CONTEXT + "/ctl/InventoryListCtl";
+
+	public String SMARTLIGHT_VIEW = PAGE_FOLDER + "/SmartLightView.jsp";
+	public String SMARTLIGHT_LIST_VIEW = PAGE_FOLDER + "/SmartLightListView.jsp";
+	public String SMARTLIGHT_CTL = APP_CONTEXT + "/ctl/SmartLightCtl";
+	public String SMARTLIGHT_LIST_CTL = APP_CONTEXT + "/ctl/SmartLightListCtl";
+
+	public String CUSTOMER_VIEW = PAGE_FOLDER + "/CustomerView.jsp";
+	public String CUSTOMER_LIST_VIEW = PAGE_FOLDER + "/CustomerListView.jsp";
+	public String CUSTOMER_CTL = APP_CONTEXT + "/ctl/CustomerCtl";
+	public String CUSTOMER_LIST_CTL = APP_CONTEXT + "/ctl/CustomerListCtl";
+
+	public String ORDER_VIEW = PAGE_FOLDER + "/OrderView.jsp";
+	public String ORDER_LIST_VIEW = PAGE_FOLDER + "/OrderListView.jsp";
+	public String ORDER_CTL = APP_CONTEXT + "/ctl/OrderCtl";
+	public String ORDER_LIST_CTL = APP_CONTEXT + "/ctl/OrderListCtl";
+
+	public String SALARY_VIEW = PAGE_FOLDER + "/SalaryView.jsp";
+	public String SALARY_LIST_VIEW = PAGE_FOLDER + "/SalaryListView.jsp";
+	public String SALARY_CTL = APP_CONTEXT + "/ctl/SalaryCtl";
+	public String SALARY_LIST_CTL = APP_CONTEXT + "/ctl/SalaryListCtl";
+
+	public String VEHICLE_VIEW = PAGE_FOLDER + "/VehicleView.jsp";
+	public String VEHICLE_LIST_VIEW = PAGE_FOLDER + "/VehicleListView.jsp";
+	public String VEHICLE_CTL = APP_CONTEXT + "/ctl/VehicleCtl";
+	public String VEHICLE_LIST_CTL = APP_CONTEXT + "/ctl/VehicleListCtl";
+
+	public String BUGTRACKER_VIEW = PAGE_FOLDER + "/BugTrackerView.jsp";
+	public String BUGTRACKER_LIST_VIEW = PAGE_FOLDER + "/BugTrackerListView.jsp";
+	public String BUGTRACKER_CTL = APP_CONTEXT + "/ctl/BugTrackerCtl";
+	public String BUGTRACKER_LIST_CTL = APP_CONTEXT + "/ctl/BugTrackerListCtl";
+
 	public String EVENT_VIEW = PAGE_FOLDER + "/EventView.jsp";
 	public String EVENT_LIST_VIEW = PAGE_FOLDER + "/EventListView.jsp";
 	public String EVENT_CTL = APP_CONTEXT + "/ctl/EventCtl";
 	public String EVENT_LIST_CTL = APP_CONTEXT + "/ctl/EventListCtl";
+
+	public String PRODUCT_VIEW = PAGE_FOLDER + "/ProductView.jsp";
+	public String PRODUCT_LIST_VIEW = PAGE_FOLDER + "/ProductListView.jsp";
+	public String PRODUCT_CTL = APP_CONTEXT + "/ctl/ProductCtl";
+	public String PRODUCT_LIST_CTL = APP_CONTEXT + "/ctl/ProductListCtl";
+
+	public String SMART_PARKING_VIEW = PAGE_FOLDER + "/SmartParkingView.jsp";
+	public String SMART_PARKING_LIST_VIEW = PAGE_FOLDER + "/SmartParkingListView.jsp";
+	public String SMART_PARKING_CTL = APP_CONTEXT + "/ctl/SmartParkingCtl";
+	public String SMART_PARKING_LIST_CTL = APP_CONTEXT + "/ctl/SmartParkingListCtl";
 
 }

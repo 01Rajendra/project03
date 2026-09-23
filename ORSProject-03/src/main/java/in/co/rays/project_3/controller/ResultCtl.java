@@ -22,157 +22,151 @@ import in.co.rays.project_3.util.ServletUtility;
 @WebServlet(name = "ResultCtl", urlPatterns = "/ctl/ResultCtl")
 public class ResultCtl extends BaseCtl {
 
-    @Override
-    protected boolean validate(HttpServletRequest request) {
+	@Override
+	protected boolean validate(HttpServletRequest request) {
 
-        boolean pass = true;
-        String op = request.getParameter("operation");
+		boolean pass = true;
+		String op = request.getParameter("operation");
 
-        if (OP_CANCEL.equalsIgnoreCase(op) || OP_RESET.equalsIgnoreCase(op)) {
-            return pass;
-        }
+		if (OP_CANCEL.equalsIgnoreCase(op) || OP_RESET.equalsIgnoreCase(op)) {
+			return pass;
+		}
 
-        if (DataValidator.isNull(request.getParameter("resultCode"))) {
-            request.setAttribute("resultCode",
-                    PropertyReader.getValue("error.require", "Result Code"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("resultCode"))) {
+			request.setAttribute("resultCode", PropertyReader.getValue("error.require", "Result Code"));
+			pass = false;
+		}
 
-        if (DataValidator.isNull(request.getParameter("studentName"))) {
-            request.setAttribute("studentName",
-                    PropertyReader.getValue("error.require", "Student Name"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("studentName"))) {
+			request.setAttribute("studentName", PropertyReader.getValue("error.require", "Student Name"));
+			pass = false;
+		}
 
-        if (DataValidator.isNull(request.getParameter("marks"))) {
-            request.setAttribute("marks",
-                    PropertyReader.getValue("error.require", "Marks"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("marks"))) {
+			request.setAttribute("marks", PropertyReader.getValue("error.require", "Marks"));
+			pass = false;
+		}
 
-        if (DataValidator.isNull(request.getParameter("grade"))) {
-            request.setAttribute("grade",
-                    PropertyReader.getValue("error.require", "Grade"));
-            pass = false;
-        }
+		if (DataValidator.isNull(request.getParameter("grade"))) {
+			request.setAttribute("grade", PropertyReader.getValue("error.require", "Grade"));
+			pass = false;
+		}
 
-        return pass;
-    }
+		return pass;
+	}
 
-    @Override
-    protected BaseDTO populateDTO(HttpServletRequest request) {
+	@Override
+	protected BaseDTO populateDTO(HttpServletRequest request) {
 
-        ResultDTO dto = new ResultDTO();
+		ResultDTO dto = new ResultDTO();
 
-        dto.setId(DataUtility.getLong(request.getParameter("id")));
-        dto.setResultCode(DataUtility.getString(request.getParameter("resultCode")));
-        dto.setStudentName(DataUtility.getString(request.getParameter("studentName")));
-        dto.setMarks(DataUtility.getInt(request.getParameter("marks")));
-        dto.setGrade(DataUtility.getString(request.getParameter("grade")));
+		dto.setId(DataUtility.getLong(request.getParameter("id")));
+		dto.setResultCode(DataUtility.getString(request.getParameter("resultCode")));
+		dto.setStudentName(DataUtility.getString(request.getParameter("studentName")));
+		dto.setMarks(DataUtility.getInt(request.getParameter("marks")));
+		dto.setGrade(DataUtility.getString(request.getParameter("grade")));
 
-        populateBean(dto, request);
+		populateBean(dto, request);
 
-        return dto;
-    }
+		return dto;
+	}
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Long id = DataUtility.getLong(req.getParameter("id"));
-        ResultModelInt model = ModelFactory.getInstance().getResultModel();
+		Long id = DataUtility.getLong(req.getParameter("id"));
+		ResultModelInt model = ModelFactory.getInstance().getResultModel();
 
-        if (id > 0) {
-            try {
-                ResultDTO dto = model.findByPK(id);
-                ServletUtility.setDto(dto, req);
+		if (id > 0) {
+			try {
+				ResultDTO dto = model.findByPK(id);
+				ServletUtility.setDto(dto, req);
 
-            } catch (DatabaseException e) {
-                e.printStackTrace();
-                ServletUtility.handleExceptionDBDown(e, req, resp, getView());
-                return;
+			} catch (DatabaseException e) {
+				e.printStackTrace();
+				ServletUtility.handleExceptionDBDown(e, req, resp, getView());
+				return;
 
-            } catch (ApplicationException e) {
-                e.printStackTrace();
-                ServletUtility.handleException(e, req, resp);
-                return;
-            }
-        }
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, req, resp);
+				return;
+			}
+		}
 
-        ServletUtility.forward(getView(), req, resp);
-    }
+		ServletUtility.forward(getView(), req, resp);
+	}
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String op = DataUtility.getString(req.getParameter("operation"));
-        ResultModelInt model = ModelFactory.getInstance().getResultModel();
+		String op = DataUtility.getString(req.getParameter("operation"));
+		ResultModelInt model = ModelFactory.getInstance().getResultModel();
 
-        if (OP_SAVE.equalsIgnoreCase(op)) {
+		if (OP_SAVE.equalsIgnoreCase(op)) {
 
-            ResultDTO bean = (ResultDTO) populateDTO(req);
+			ResultDTO bean = (ResultDTO) populateDTO(req);
 
-            try {
-                model.add(bean);
-                ServletUtility.setDto(bean, req);
-                ServletUtility.setSuccessMessage("Result Added Successfully !!!", req);
+			try {
+				model.add(bean);
+				ServletUtility.setDto(bean, req);
+				ServletUtility.setSuccessMessage("Result Added Successfully !!!", req);
 
-            } catch (DuplicateRecordException dre) {
-                ServletUtility.setDto(bean, req);
-                ServletUtility.setErrorMessage("Result Code Already Exist !!!", req);
+			} catch (DuplicateRecordException dre) {
+				ServletUtility.setDto(bean, req);
+				ServletUtility.setErrorMessage("Result Code Already Exist !!!", req);
 
-            } catch (DatabaseException de) {
-                de.printStackTrace();
-                ServletUtility.handleExceptionDBDown(de, req, resp, getView());
-                return;
+			} catch (DatabaseException de) {
+				de.printStackTrace();
+				ServletUtility.handleExceptionDBDown(de, req, resp, getView());
+				return;
 
-            } catch (ApplicationException ae) {
-                ae.printStackTrace();
-                ServletUtility.handleException(ae, req, resp);
-                return;
-            }
+			} catch (ApplicationException ae) {
+				ae.printStackTrace();
+				ServletUtility.handleException(ae, req, resp);
+				return;
+			}
 
-        } else if (OP_UPDATE.equalsIgnoreCase(op)) {
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 
-            ResultDTO dto = (ResultDTO) populateDTO(req);
+			ResultDTO dto = (ResultDTO) populateDTO(req);
 
-            try {
-                model.update(dto);
-                ServletUtility.setDto(dto, req);
-                ServletUtility.setSuccessMessage("Result Updated Successfully !!!", req);
+			try {
+				model.update(dto);
+				ServletUtility.setDto(dto, req);
+				ServletUtility.setSuccessMessage("Result Updated Successfully !!!", req);
 
-            } catch (DuplicateRecordException dre) {
-                ServletUtility.setDto(dto, req);
-                ServletUtility.setErrorMessage("Result Code Already Exist !!!", req);
+			} catch (DuplicateRecordException dre) {
+				ServletUtility.setDto(dto, req);
+				ServletUtility.setErrorMessage("Result Code Already Exist !!!", req);
 
-            } catch (DatabaseException de) {
-                de.printStackTrace();
-                ServletUtility.handleException(de, req, resp);
-                return;
+			} catch (DatabaseException de) {
+				de.printStackTrace();
+				ServletUtility.handleException(de, req, resp);
+				return;
 
-            } catch (ApplicationException ae) {
-                ae.printStackTrace();
-                ServletUtility.handleException(ae, req, resp);
-                return;
-            }
+			} catch (ApplicationException ae) {
+				ae.printStackTrace();
+				ServletUtility.handleException(ae, req, resp);
+				return;
+			}
 
-        } else if (OP_RESET.equalsIgnoreCase(op)) {
+		} else if (OP_RESET.equalsIgnoreCase(op)) {
 
-            ServletUtility.redirect(ORSView.RESULT_CTL, req, resp);
-            return;
+			ServletUtility.redirect(ORSView.RESULT_CTL, req, resp);
+			return;
 
-        } else if (OP_CANCEL.equalsIgnoreCase(op)) {
+		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 
-            ServletUtility.redirect(ORSView.RESULT_LIST_CTL, req, resp);
-            return;
-        }
+			ServletUtility.redirect(ORSView.RESULT_LIST_CTL, req, resp);
+			return;
+		}
 
-        ServletUtility.forward(getView(), req, resp);
-    }
+		ServletUtility.forward(getView(), req, resp);
+	}
 
-    @Override
-    protected String getView() {
-        return ORSView.RESULT_VIEW;
-    }
+	@Override
+	protected String getView() {
+		return ORSView.RESULT_VIEW;
+	}
 }

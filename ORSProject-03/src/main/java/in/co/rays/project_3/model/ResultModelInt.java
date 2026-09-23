@@ -14,25 +14,18 @@ import in.co.rays.project_3.exception.DuplicateRecordException;
  */
 public interface ResultModelInt {
 
-    public long add(ResultDTO dto) 
-            throws DatabaseException, DuplicateRecordException;
+	public long add(ResultDTO dto) throws DatabaseException, DuplicateRecordException;
 
-    public void delete(ResultDTO dto) 
-            throws DatabaseException;
+	public void delete(ResultDTO dto) throws DatabaseException;
 
-    public void update(ResultDTO dto) 
-            throws DatabaseException, DuplicateRecordException;
+	public void update(ResultDTO dto) throws DatabaseException, DuplicateRecordException;
 
-    public List list() 
-            throws DatabaseException;
+	public List list() throws DatabaseException;
 
-    public List search(ResultDTO dto, int pageNo, int pageSize) 
-            throws DatabaseException;
+	public List search(ResultDTO dto, int pageNo, int pageSize) throws DatabaseException;
 
-    public ResultDTO findByPK(long pk) 
-            throws DatabaseException;
+	public ResultDTO findByPK(long pk) throws DatabaseException;
 
-    public ResultDTO findByResultCode(String resultCode) 
-            throws DatabaseException;
+	public ResultDTO findByResultCode(String resultCode) throws DatabaseException;
 
 }

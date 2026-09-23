@@ -3,13 +3,11 @@ package in.co.rays.project_3.dto;
 import java.util.Date;
 
 public class InventoryDTO extends BaseDTO {
-	
-	
+
 	private String supplierName;
 	private Date dob;
 	private Long quantity;
 	private String product;
-	
 
 	public String getSupplierName() {
 		return supplierName;
@@ -54,7 +52,5 @@ public class InventoryDTO extends BaseDTO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
 }

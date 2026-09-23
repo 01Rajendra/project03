@@ -1,44 +1,32 @@
 <?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC 
-"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="in.co.rays.project_3.dto">
 
-	<class name="VehicleDTO" table="ST_VEHICLE">
+	<class name="VehicleDTO" table="st_vehicle">
 
-		<id name="id" type="java.lang.Long">
-			<column name="ID" />
-			<generator class="identity"/>
+		<id name="vechicleId" type="java.lang.Long">
+			<column name="VECHICLEID" />
+			<generator class="increment" />
 		</id>
 
-		<!-- Unique Vehicle Number -->
-		<property name="vehicleNumber" type="java.lang.String">
-			<column name="VEHICLE_NUMBER" unique="true" not-null="true" />
+		<property name="vehicleName" type="java.lang.String">
+			<column name="VEHICLENAME" />
 		</property>
 
-		<property name="ownerName" type="java.lang.String">
-			<column name="OWNER_NAME" />
+		<property name="model" type="java.lang.String">
+			<column name="MODEL" />
 		</property>
 
-		<property name="serviceType" type="java.lang.String">
-			<column name="SERVICE_TYPE" />
+		<property name="color" type="java.lang.String">
+			<column name="COLOR" />
 		</property>
 
-		<property name="serviceDate" type="java.util.Date">
-			<column name="SERVICE_DATE" />
-		</property>
-
-		<property name="mechanicName" type="java.lang.String">
-			<column name="MECHANIC_NAME" />
-		</property>
-
-		<property name="serviceCost" type="java.lang.String">
-			<column name="SERVICE_COST" />
-		</property>
-
-		<property name="nextServiceDate" type="java.util.Date">
-			<column name="NEXT_SERVICE_DATE" />
+		<property name="price" type="java.lang.Double">
+			<column name="PRICE" />
 		</property>
 
 	</class>

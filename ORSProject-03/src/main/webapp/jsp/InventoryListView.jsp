@@ -31,7 +31,7 @@
 <body class="p4">
 
 	<%@include file="Header.jsp"%>
-	<%@include file="calendar.jsp" %>
+	<%@include file="calendar.jsp"%>
 
 	<div class="container-fluid">
 
@@ -66,11 +66,9 @@
 				int pageSize = ServletUtility.getPageSize(request);
 				int index = ((pageNo - 1) * pageSize) + 1;
 
-				int nextPageSize =
-					DataUtility.getInt(request.getAttribute("nextListSize").toString());
+				int nextPageSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
 
-				List<InventoryDTO> list =
-					(List<InventoryDTO>) ServletUtility.getList(request);
+				List<InventoryDTO> list = (List<InventoryDTO>) ServletUtility.getList(request);
 
 				Iterator<InventoryDTO> it = list.iterator();
 
@@ -107,7 +105,7 @@
 										name="product" placeholder="Enter Product"
 										value="<%=ServletUtility.getParameter("product", request)%>">
 								</div>
-								
+
 
 								<!-- Buttons -->
 								<div class="mx-2">
@@ -150,7 +148,7 @@
 					<tbody>
 						<%
 							while (it.hasNext()) {
-								dto = (InventoryDTO) it.next();
+									dto = (InventoryDTO) it.next();
 						%>
 						<tr>
 							<td><input type="checkbox" class="case" name="ids"
