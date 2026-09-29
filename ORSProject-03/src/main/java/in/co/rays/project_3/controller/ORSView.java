@@ -162,11 +162,6 @@ public interface ORSView {
 	public String SMARTLIGHT_CTL = APP_CONTEXT + "/ctl/SmartLightCtl";
 	public String SMARTLIGHT_LIST_CTL = APP_CONTEXT + "/ctl/SmartLightListCtl";
 
-	public String CUSTOMER_VIEW = PAGE_FOLDER + "/CustomerView.jsp";
-	public String CUSTOMER_LIST_VIEW = PAGE_FOLDER + "/CustomerListView.jsp";
-	public String CUSTOMER_CTL = APP_CONTEXT + "/ctl/CustomerCtl";
-	public String CUSTOMER_LIST_CTL = APP_CONTEXT + "/ctl/CustomerListCtl";
-
 	public String ORDER_VIEW = PAGE_FOLDER + "/OrderView.jsp";
 	public String ORDER_LIST_VIEW = PAGE_FOLDER + "/OrderListView.jsp";
 	public String ORDER_CTL = APP_CONTEXT + "/ctl/OrderCtl";
@@ -202,4 +197,8 @@ public interface ORSView {
 	public String SMART_PARKING_CTL = APP_CONTEXT + "/ctl/SmartParkingCtl";
 	public String SMART_PARKING_LIST_CTL = APP_CONTEXT + "/ctl/SmartParkingListCtl";
 
+	public String CUSTOMER_VIEW = PAGE_FOLDER + "/CustomerView.jsp";
+	public String CUSTOMER_LIST_VIEW = PAGE_FOLDER + "/CustomerListView.jsp";
+	public String CUSTOMER_CTL = APP_CONTEXT + "/ctl/CustomerCtl";
+	public String CUSTOMER_LIST_CTL = APP_CONTEXT + "/ctl/CustomerListCtl";
 }
